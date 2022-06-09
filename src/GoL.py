@@ -14,6 +14,9 @@ WinRefresh = int(1 / FPS * 1000)
 
 # Colors
 ClrBg = (0,0,0)
+ClrDark = (48,48,48)
+ClrDarker = (32,32,32)
+ClrYetDarker = (24,24,24)
 
 ClrBorder = (255,255,255)
 
@@ -21,8 +24,9 @@ ClrCell = (255,255,255)
 
 
 # Elements
-ContRoot = cont.Container(pos=[0,0],size=[WinW,WinH],padding=[])
-(ContFooter := cont.Container(parent=ContRoot,pos=[0,0],size=[516,32])).position(("bot","left"))
+ContRoot = cont.Container(pos=[0,0],size=[WinW,WinH],padding=2)
+(ContFooter := cont.Container(parent=ContRoot,size=[516,32])).position("bot")
+(ContFooterAccent := cont.Container(parent=ContFooter,size=[516,2])).position("top")
 
 
 
@@ -36,7 +40,8 @@ def init():
     draw.rect(Win, ClrBg, (add(ContRoot.pos, [2,2]),
                            sub(ContRoot.size, [4,4])))
 
-    draw.rect(Win, (0,0,128), ContFooter.getRect())
+    draw.rect(Win, ClrDarker, ContFooter.getRect())
+    draw.rect(Win, ClrDark, ContFooterAccent.getRect())
 
 
 

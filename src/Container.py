@@ -16,19 +16,46 @@ class Container:
         # copy margin into self.margin until four elements
         # thanks to CEO#0069 AKA Fatal error: death.py activated
         # also [:4] and not [:] so that extra args get chopped. Not necessary but cool
-        self.padding = ((4*forceList(padding))[:4])
+        self.margin = ((4*forceList(margin))[:4])
         self.padding = ((4*forceList(padding))[:4])
 
-    def position(self, pos): # to compact
-        for i in pos:
+        if parent is not None:
+            self.position(["top","left"])
+
+    def position(self,pos):
+        pos = [pos] if type(pos) is str else pos
+        for i in forceList(pos):
+            if i == "top":
+                self.pos[1] = self.parent.pos[1] + self.parent.padding[0]
+            if i == "right":
+                self.pos[0] = self.parent.size[0] - self.parent.padding[1] - self.size[0]
+            if i == "bot" or i == "bottom":
+                self.pos[1] = self.parent.size[1] - self.parent.padding[2] - self.size[1]
             if i == "left":
                 self.pos[0] = self.parent.pos[0] + self.parent.padding[3]
-            if i == "right":
-                self.pos[0] = self.parent.size[0] - self.parent.padding[1]
-            if i == "top":
-                self.pos[1] = self.parent.pos[1] - self.parent.padding[0]
-            if i == "bot" or pos == "bottom":
-                self.pos[1] = self.parent.size[1] - self.parent.padding[2]
+
+    #def position(self, pos): # to compact
+        # for i in forceList(pos):
+        #     print(i,pos,forceList(pos))
+        #     if i == "left":
+        #         self.pos[0] = self.parent.pos[0] + self.parent.padding[3]
+        #     if i == "right":
+        #         self.pos[0] = self.parent.size[0] - self.parent.padding[1]
+        #     if i == "top":
+        #         self.pos[1] = self.parent.pos[1] - self.parent.padding[0]
+        #     if i == "bot" or i == "bottom":
+        #         self.pos[1] = self.parent.size[1] - self.parent.padding[2] - self.size[1]
+
+    # def position(self, top=None, right=None, bot=None, left=None):
+    #     if top is not None:
+    #         self.pos[1] = self.parent.pos[1] - self.parent.padding[0]
+    #     if right is not None:
+    #         self.pos[0] = self.parent.size[0] - self.parent.padding[1] - self.size[0]
+    #     if bot is not None:
+    #         self.pos[1] = self.parent.size[1] - self.parent.padding[2] - self.size[1]
+    #     if left is not None:
+    #         self.pos[0] = self.parent.pos[0] + self.parent.padding[3]
+
 
     def getRect(self):
         return self.pos, self.size
